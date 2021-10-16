@@ -9,15 +9,16 @@ import Cart from './screens/Cart';
 
 export default function App() {
   const MainNavigator = createNativeStackNavigator();
-  return (
+  return (          
+        
         <NavigationContainer>
-      <MainNavigator.Navigator screenOptions={{headerShown:false}} initialRouteName = 'Login'>
+      <MainNavigator.Navigator screenOptions={{headerShown:false}} initialRouteName = 'Cart'>
         <MainNavigator.Screen name = 'Home' component={Home}/>
         <MainNavigator.Screen name = 'Login' component={Login}/>
         <MainNavigator.Screen name = 'Cart' component={Cart}/>        
       </MainNavigator.Navigator>
     </NavigationContainer>    
-   
+  
   );
     
   }
