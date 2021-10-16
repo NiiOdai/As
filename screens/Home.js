@@ -1,12 +1,14 @@
 import React from 'react'
 import {View, Text} from 'react-native'
-// import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 
-export default function Home(){
+const Home = () => {
     return(
-        <View>
-            <Text>Hello</Text>
+        <View style={{marginTop:50}}>
+            <Ionicons name="menu" size={34} color="black"  />
+            <Text>The world's <Text style={{color:'orange'}}>Best Bike</Text></Text>
         </View>
     )
 }
+export default Home;

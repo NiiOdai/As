@@ -1,9 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View,Image,TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View,Image,Pressable, TouchableOpacity,Button } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 
-const Login = (navigation) => {
+const Login = ({navigation}) => {
     return (
 
       <View style={styles.container}>
@@ -30,13 +30,29 @@ const Login = (navigation) => {
         onPress= {() =>{
          navigation.navigate("Home")
         }}
-        > 
         
+    
+     style={{
+       backgroundColor:'#e3e3e3',
+       padding: 10,
+       paddingHorizontal:60,
+       flexDirection:'row',
+       alignItems:'center',
+       borderRadius:10,
+       marginTop:10,
+       marginBottom:10,
+
+     }}>
         <AntDesign name="google" size={24} color="black" />
            
             <Text style={{marginLeft:10}}>Login with Gmail</Text>
+            
       </TouchableOpacity>
-      <TouchableOpacity style = {styles.button1}>
+      <TouchableOpacity style = {styles.button1}
+      onPress= {() =>{
+         navigation.navigate("Home")
+        }}>
+        
       <AntDesign name="apple1" size={24} color="white"/> 
        <Text style = {styles.white}>Login with Apple</Text>
        </TouchableOpacity>
