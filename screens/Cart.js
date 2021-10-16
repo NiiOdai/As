@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Ionicons, FontAwesome, AntDesign} from "@expo/vector-icons";
 
 
-export default function Cart(navigation) {
+export default function Cart({navigation}) {
   
     return <SafeAreaView  style={{ backgroundColor: 'white', flex: 1, }}>
        <View
