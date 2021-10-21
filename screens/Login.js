@@ -1,107 +1,159 @@
-import React from 'react';
-import { StyleSheet, Text, View,Image,TouchableOpacity } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
+import React from "react";
+import {
+  View,
+  Text,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  Button,
+  StatusBar,
+  FlatList,
+  RefreshControl,
+} from "react-native";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
+import { useState } from "react";
+import { useEffect } from "react";
 
+export default function Login(params) {
+  const [weatherData, setWeatherData] = useState();
+  StatusBar.setBarStyle("light-content");
 
-const Login = ({navigation}) => {
-    return (
+  async function getWeather(city = "London") {
+    fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=01f601a8bd1b726d476c8deb27ef8d51`
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        setWeatherData(response);
+        console.log(response);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
 
-      <View style={styles.container}>
-     
-  <Image
-  style={{
-    width: 151,
-    height: 151,
-   borderTopLeftRadius: 20,
-   borderBottomLeftRadius: 20,
-   borderTopRightRadius: 20,
-   borderBottomRightRadius: 20,
-   transform:[{rotate:'45deg'}],
-   marginBottom:50,
-  }}
-  source={{
-    uri:
-      'https://images.unsplash.com/photo-1481988535861-271139e06469?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=890&q=80'  }}
-/>
-  <Text style={styles.red}>Welcome to</Text>
-        <Text style={styles.red}>Power Bike Shop</Text>
-     
-        <TouchableOpacity style={styles.button}
-        onPress= {() =>{
-         navigation.navigate("Home")
+  const weatherImage = [
+    { weather: "overcast clouds", img: require("../assets/adaptive-icon.png") },
+    { weather: "broken clouds", img: require("../assets/adaptive-icon.png") },
+    { weather: "few clouds", img: require("../assets/adaptive-icon.png") },
+    { weather: "clear sky", img: require("../assets/adaptive-icon.png") },
+  ];
+  
+  const cities = ["Accra", "Kumasi", "London", "Florida", "Abidjan"];
+
+  function FTC(temp) {
+    return temp - 273.15;
+  }
+
+  useEffect(() => {
+    getWeather();
+  }, []);
+
+  return (
+    <View
+      style={{
+        backgroundColor: "#19172b",
+        flex: 1,
+        paddingTop: 55,
+        paddingHorizontal: 20,
+      }}
+    >
+      <View
+        style={{
+          borderRadius: 25,
+          backgroundColor: "#211f30",
+          padding: 20,
+          height: 200,
         }}
-        
-    
-     style={{
-       backgroundColor:'#e3e3e3',
-       padding: 10,
-       paddingHorizontal:60,
-       flexDirection:'row',
-       alignItems:'center',
-       borderRadius:10,
-       marginTop:10,
-       marginBottom:10,
-
-     }}>
-        <AntDesign name="google" size={24} color="black" />
-           
-            <Text style={{marginLeft:10}}>Login with Gmail</Text>
-            
-      </TouchableOpacity>
-      <TouchableOpacity style = {styles.button1}
-      onPress= {() =>{
-         navigation.navigate("Home")
-        }}>
-        
-      <AntDesign name="apple1" size={24} color="white"/> 
-       <Text style = {styles.white}>Login with Apple</Text>
-       </TouchableOpacity>
-       <TouchableOpacity>
-       <Text style={{marginTop:10, color:'grey'}}>Not a member? <Text style={{color:'orange',fontWeight:'700'}} >Sign Up</Text></Text>
-       </TouchableOpacity>
-       
+      >
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ color: "white", fontSize: 30 }}>Today</Text>
+          <View>
+            <Text style={{ color: "white" }}>{new Date().toDateString()}</Text>
+            <Text style={{ color: "grey", textTransform: "capitalize" }}>
+              {weatherData?.weather[0].description}
+            </Text>
+          </View>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ color: "white", fontSize: 70 }}>
+            {FTC(weatherData?.main.temp).toFixed(1)}
+            <Text style={{ color: "orange", fontSize: 40 }}>C</Text>
+          </Text>
+          <Image
+            style={{ width: 100, height: 100, marginRight: 20 }}
+            source={
+              weatherImage.find(
+                (item) => weatherData?.weather[0].description === item?.weather
+              )?.img
+            }
+          />
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <Ionicons name="location-outline" color="white" />
+          <Text style={{ color: "white", paddingLeft: 10 }}>
+            {weatherData?.name}
+          </Text>
+        </View>
       </View>
-    );
-};
-
-const styles = StyleSheet.create({
-  container: {
-  flex:1,
-    justifyContent:'center',
-    alignItems:'center',
-  },
-
-  red: {
-    color: 'black',
-    fontSize:25,
-    fontWeight: 'bold',
-  },
-  button: {
-    flexDirection: 'row',
-    // alignItems: "center",
-    backgroundColor: "#DDDDDD",
-    padding: 10,
-    borderRadius:10,
-    paddingHorizontal: 60,
-    marginBottom: 10,
-    marginTop:5,
-    marginTop:20,
-  },
-   button1: {
-     flexDirection:'row',
-    alignItems: "center",
-    backgroundColor: "black",
-    padding: 10,
-    borderRadius:10,
-    paddingHorizontal:60,
-    
-   
-  },
-  white:{
-      color:'white',
-      marginTop:10,
-      marginLeft: 10
-  },
-});
-
-export default Login;
+      <FlatList
+        data={cities}
+        ListEmptyComponent={
+          <View>
+            <Text style={{ color: "white" }}>Nothing here</Text>
+          </View>
+        }
+        contentContainerStyle={{ paddingTop: 20 }}
+        refreshControl={
+          <RefreshControl
+            tintColor="white"
+            onRefresh={() => {}}
+            refreshing={false}
+          />
+        }
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            onPress={() => {
+              getWeather(item);
+            }}
+            style={{
+              padding: 20,
+              borderRadius: 10,
+              backgroundColor: "#211f30",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: 10,
+            }}
+          >
+            <Text style={{ color: "white" }}>{item}</Text>
+            <Ionicons
+              name={
+                item === weatherData?.name ? "radio-button-on" : "radio-button-off"
+              }
+              size={18}
+              color="white"
+            />
+          </TouchableOpacity>
+        )}
+      />
+    </View>
+  );
+}
