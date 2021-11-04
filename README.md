@@ -1,4 +1,4 @@
 # As
-![Screenshot (331)](https://user-images.githubusercontent.com/83757220/138964766-23149fdd-9df3-4ffa-bf67-14508f6577eb.png)
-![Screenshot (329)](https://user-images.githubusercontent.com/83757220/138964773-5c1a5295-76c9-46fe-9c74-22c8673a03e2.png)
-![Screenshot (330)](https://user-images.githubusercontent.com/83757220/138964781-ddef6699-73cc-4799-a05b-695fdf1b0052.png)
+![HomeScreen](https://user-images.githubusercontent.com/83757220/140398164-03d98ecd-acd8-4d89-916b-3ea03b16a021.jpg)
+![Cart Screen](https://user-images.githubusercontent.com/83757220/140398183-4c272d5e-2205-448c-b332-7cb483f71569.jpg)
+![Login Screen](https://user-images.githubusercontent.com/83757220/140398185-eecaaf97-ceeb-4083-afa8-777dddf798cd.jpg)
